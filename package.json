@@ -1,13 +1,16 @@
 {
   "name": "yureijs",
   "version": "1.0.0",
-  "main": "index.js",
+  "bin": {
+    "yureijs": "bin/yureijs"
+  },
   "author": "Tosh39",
   "license": "MIT",
   "scripts": {
     "casperjs": "casperjs"
   },
   "devDependencies": {
-    "casperjs": "^1.1.4"
+    "casperjs": "^1.1.4",
+    "commander": "^2.15.1"
   }
 }

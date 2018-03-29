@@ -1,0 +1,90 @@
+#!/usr/bin/env node
+'use strict'
+
+// FOR DEBUG
+// var exec = require('child_process').exec;
+// var process = exec('npm run casperjs test spec.js');
+// process.stdout.on('data', function(data) {
+//     console.log(data);
+// });
+
+var program = require('commander');
+
+program
+    .version('1.0.0', '-v, --version')
+
+// FOR DEBUG
+// program
+//     .command('casperjs')
+//     .action(function(filepath) {
+//         var spawn = require('child_process').spawn;
+//         var shell = spawn('npm', ['run', 'casperjs', '-h']);
+//         shell.stdout.on('data', function(data) {
+//             // 正常データ
+//             console.log(data.toString());
+//         });
+//         shell.stderr.on('data', function(data) {
+//             console.log('[Error] ' + data);
+//         });
+//         shell.on('close', function(data) {
+//             console.log('close: ' + data);
+//         });
+//     });
+
+program
+    .command('generate <spec> <path>')
+    .alias('g')
+    .description('Create spec file and add path to parent spec.js file')
+    .action(function(spec, path) {
+        console.log("path: " + path);
+        if(spec != 'spec') throw "'generate spec [path]' to create spec file";
+
+        var fs = require('fs');
+        var dir = './spec';
+        var filepath = dir + "/" + path + ".js";
+
+        if(!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+            console.log('folder created')
+        } else {
+            console.log('folder exists.');
+        }
+
+        // File 追加
+        fs.writeFileSync(filepath, fs.readFileSync('./template.js'), function(err){
+            if(err) throw err;
+        });
+        console.log("Created: " + filepath);
+
+        // spec.js 追記
+        if(!fs.existsSync('./spec.js')){
+            // もし spec.js がなかったら追記
+            fs.writeFile('./spec.js');
+        }
+        fs.appendFile('./spec.js', "\nrequire('" + filepath + "')();", function(err){
+            if(err) throw err;
+        });
+        console.log("Update: spec.js");
+    });
+
+program
+    .command('test <filepath>')
+    .alias('t')
+    .description('Run test by casperjs')
+    .action(function(filepath) {
+        var spawn = require('child_process').spawn;
+        var shell = spawn('npm', ['run', 'casperjs', 'test', 'spec.js']);
+        shell.stdout.on('data', function(data) {
+            // 正常データ
+            console.log(data.toString());
+        });
+        // FIXME このエラーが出る -> "npm ERR! code ELIFECYCLE errno 1"
+        // shell.stderr.on('data', function(data) {
+        //     console.log('[Error] ' + data);
+        // });
+        shell.on('close', function(data) {
+            console.log('[Finish] test finished');
+        });
+    });
+
+program.parse(process.argv);
