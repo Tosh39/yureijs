@@ -1,0 +1,13 @@
+{
+  "name": "yureijs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Tosh39",
+  "license": "MIT",
+  "scripts": {
+    "casperjs": "casperjs"
+  },
+  "devDependencies": {
+    "casperjs": "^1.1.4"
+  }
+}
