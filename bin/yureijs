@@ -61,7 +61,7 @@ program
         // spec.js 追記
         if(!fs.existsSync('./spec.js')){
             // もし spec.js がなかったら作成
-            fs.writeFile('./spec.js');
+            fs.appendFile('./spec.js', '');
         }
         fs.appendFile('./spec.js', "\nrequire('" + filepath + "')();", function(err){
             if(err) throw err;
