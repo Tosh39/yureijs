@@ -5,10 +5,11 @@
     "yureijs": "bin/yureijs"
   },
   "author": "Tosh39",
-  "license": "MIT",
-  "scripts": {
-    "casperjs": "casperjs"
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/Tosh39/yureijs.git"
   },
+  "license": "MIT",
   "dependencies": {
     "casperjs": "^1.1.4",
     "commander": "^2.15.1"
