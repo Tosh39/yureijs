@@ -75,7 +75,7 @@ program
     .description('Run test by casperjs')
     .action(function(filepath) {
         var spawn = require('child_process').spawn;
-        var shell = spawn('npm', ['run', 'casperjs', 'test', 'spec.js']);
+        var shell = spawn('node', ['./node_modules/casperjs/bin/casperjs.js', 'test', filepath]);
         shell.stdout.on('data', function(data) {
             // 正常データ
             console.log(data.toString());
