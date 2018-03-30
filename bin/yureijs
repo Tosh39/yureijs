@@ -8,6 +8,8 @@
 //     console.log(data);
 // });
 
+console.log(__dirname);
+var moduleDir = __dirname + "/..";
 var program = require('commander');
 
 program
@@ -41,7 +43,7 @@ program
 
         var fs = require('fs');
         var dir = './spec';
-        var filepath = dir + "/" + path + ".js";
+        var filepath = dir + '/' + path + '.js';
 
         if(!fs.existsSync(dir)){
             fs.mkdirSync(dir);
@@ -51,14 +53,14 @@ program
         }
 
         // File 追加
-        fs.writeFileSync(filepath, fs.readFileSync('./template.js'), function(err){
+        fs.writeFileSync(filepath, fs.readFileSync(moduleDir + '/template.js'), function(err){
             if(err) throw err;
         });
         console.log("Created: " + filepath);
 
         // spec.js 追記
         if(!fs.existsSync('./spec.js')){
-            // もし spec.js がなかったら追記
+            // もし spec.js がなかったら作成
             fs.writeFile('./spec.js');
         }
         fs.appendFile('./spec.js', "\nrequire('" + filepath + "')();", function(err){

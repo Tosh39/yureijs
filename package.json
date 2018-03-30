@@ -9,7 +9,7 @@
   "scripts": {
     "casperjs": "casperjs"
   },
-  "devDependencies": {
+  "dependencies": {
     "casperjs": "^1.1.4",
     "commander": "^2.15.1"
   }
