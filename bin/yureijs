@@ -44,13 +44,21 @@ program
         var fs = require('fs');
         var dir = './spec';
         var filepath = dir + '/' + path + '.js';
-
-        if(!fs.existsSync(dir)){
-            fs.mkdirSync(dir);
-            console.log('folder created')
-        } else {
-            console.log('folder exists.');
-        }
+        var folderNameArr = filepath.split('/');
+        var directoryName = '';
+        folderNameArr.forEach(function createFolderIfNotExists(name, index) {
+            // if(name == '.') { return }
+            // if(name.indexOf('.js') >= 0) { return }
+            if(index != 0) directoryName += '/';
+            directoryName += name;
+            if(index == 0 || index == (folderNameArr.length - 1)) { return }
+            if(!fs.existsSync(directoryName)){
+                fs.mkdirSync(directoryName);
+                console.log('folder created: ' + directoryName);
+            } else {
+                console.log('folder exists: ' + directoryName);
+            }
+        });
 
         // File 追加
         fs.writeFileSync(filepath, fs.readFileSync(moduleDir + '/template.js'), function(err){
