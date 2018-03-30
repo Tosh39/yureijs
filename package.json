@@ -1,13 +1,13 @@
 {
   "name": "yureijs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "bin": {
     "yureijs": "bin/yureijs"
   },
   "author": "Tosh39",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/Tosh39/yureijs.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tosh39/yureijs.git"
   },
   "license": "MIT",
   "dependencies": {
